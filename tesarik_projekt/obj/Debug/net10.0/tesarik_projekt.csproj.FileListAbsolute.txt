@@ -1,0 +1,14 @@
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\obj\Debug\net10.0\tesarik_projekt.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\obj\Debug\net10.0\tesarik_projekt.AssemblyInfoInputs.cache
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\obj\Debug\net10.0\tesarik_projekt.AssemblyInfo.cs
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\obj\Debug\net10.0\tesarik_projekt.csproj.CoreCompileInputs.cache
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\bin\Debug\net10.0\tesarik_projekt.exe
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\bin\Debug\net10.0\tesarik_projekt.deps.json
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\bin\Debug\net10.0\tesarik_projekt.runtimeconfig.json
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\bin\Debug\net10.0\tesarik_projekt.dll
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\bin\Debug\net10.0\tesarik_projekt.pdb
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\obj\Debug\net10.0\tesarik_projekt.dll
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\obj\Debug\net10.0\refint\tesarik_projekt.dll
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\obj\Debug\net10.0\tesarik_projekt.pdb
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\obj\Debug\net10.0\tesarik_projekt.genruntimeconfig.cache
+C:\Users\danie\source\repos\tesarik_projekt\tesarik_projekt\obj\Debug\net10.0\ref\tesarik_projekt.dll

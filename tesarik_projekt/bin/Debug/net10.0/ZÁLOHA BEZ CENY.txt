@@ -1,0 +1,428 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+
+namespace tesarik_projekt
+{
+    internal class Program
+    {
+        static int NacteniCeny()
+        {
+            using (StreamReader sr = new StreamReader(@"AktualniObjednavka.txt"))
+            {
+                while (true)
+                {
+
+                }
+            }
+        }
+
+        static void ZapisAktualniObjednavky(string[] a, int[] b, int c)
+        {
+            string ZapisovaneJidlo = a[c];
+            int[] Cenik = b;
+            using (StreamWriter sw = new StreamWriter(@"AktualniObjednavka.txt", true)) // true - pripsani nove hodnoty
+            {
+                sw.WriteLine($"{ZapisovaneJidlo} {Cenik[c]}");
+            }
+        }
+
+        static void ExportAktualniObjednavky()
+        {
+            if (File.Exists("ExistujiciObjednavka.txt"))
+            {
+                File.Delete("ExistujiciObjednavka.txt");
+            }
+
+            Console.Clear();
+            File.Copy(@"AktualniObjednavka.txt", @"ExistujiciObjednavka.txt", true); //zdroj, cil
+            Console.WriteLine("Objednávka byla úspěšně exportována do souboru ExistujiciObjednavka.txt");
+        }
+
+        static int NacteniExistujiciObjednavky()
+        {
+            if (File.Exists("ExistujiciObjednavka.txt"))
+            {
+                File.Copy(@"ExistujiciObjednavka.txt", @"AktualniObjednavka.txt", true);
+                return 1;
+            }
+            else
+            {
+                Console.WriteLine("Soubor existující objednávky nebyl nalezen!\nUjistěte se, zda má soubor správný formát a je ve stejném adresáři jako soubor aplikace!");
+                return 0;
+            }
+        }
+
+        static void SmazaniPolozky(int a)
+        {
+            int indexRadku = a - 1; //poradova cisla se vypisuji od 1
+            List<string> radky = File.ReadAllLines("AktualniObjednavka.txt").ToList(); //nacteni vsech radku do listu
+
+            if (indexRadku >= 0 && indexRadku < radky.Count)
+            {
+                Console.Clear();
+                radky.RemoveAt(indexRadku); //vymazani polozky z listu
+                File.WriteAllLines("AktualniObjednavka.txt", radky); //vypsani listu zpet do souboru
+                Console.WriteLine("Položka byla úspěšně smazána.\n");
+            }
+        }
+
+        static void MenuObjednavky()
+        {
+            string Odpoved;
+            while (true)
+            {
+                Console.WriteLine("Objednávka:\n-----");
+                using (StreamReader sr = new StreamReader(@"AktualniObjednavka.txt"))
+                {
+                    string radek;
+                    int PoradoveCislo = 1;
+                    while ((radek = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine($"{PoradoveCislo} - {radek}");
+                        PoradoveCislo++;
+                    }
+                }
+
+                Console.WriteLine("-----");
+                Console.WriteLine("\n[0] - Smazat položku (0 <mezera> pořadové číslo)");
+                Console.WriteLine("[1] - Zpět do menu\n");
+
+                Console.Write("> ");
+                Odpoved = Console.ReadLine();
+
+                try
+                {
+                    switch (int.Parse(Odpoved[0].ToString())) //prevedeni prvni hodnoty stringu na integer
+                    {
+                        case 0:
+                            try
+                            {
+                                int Polozka = int.Parse(Odpoved[2].ToString());
+                                SmazaniPolozky(Polozka);
+                            }
+                            catch
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Neplatné pořadové číslo");
+                                continue;
+                            }
+                            break;
+
+                        case 1:
+                            Console.Clear();
+                            return;
+                        default:
+                            Console.Clear();
+                            Console.WriteLine("Neplatná volba!\n");
+                            break;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Neplatná volba!\n");
+                    continue;
+                }
+            }
+
+        }
+
+        static int PotvrzeniKonce()
+        {
+            while (true)
+            {
+                Console.WriteLine("\nOpravdu chcete ukončit objednávku? (Y/N)\n");
+
+                Console.Write("> ");
+                string Odpoved = Console.ReadLine();
+                if (Odpoved == "y" || Odpoved == "Y")
+                {
+                    return 1;
+                }
+                else
+                {
+                    if (Odpoved == "n" || Odpoved == "N")
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Úspěšně vráceno do menu\n");
+                        return 0;
+                    }
+                    Console.Clear();
+                    Console.WriteLine("Neplatná volba!");
+                    return 0;
+                }
+            }
+        }
+
+        static int Konec(string[] a)
+        {
+            while (true)
+            {
+                string[] SeznamJidel = a;
+                int OpravduKonec = 0;
+
+                string[] NacteneRadky = File.ReadAllLines("AktualniObjednavka.txt"); //nacteni vsech radku do pole
+                Console.WriteLine("Vaše objednávka:\n-----");
+
+                for (int TypJidla = 0; TypJidla < SeznamJidel.Length; TypJidla++) //dokud to neprojde vsechny typy jidla v seznamu
+                {
+                    int PocetTypuJidla = 0;
+
+                    for (int i = 0; i < NacteneRadky.Length; i++) //projde vsechny radky a porovna s aktualnim typem jidla
+                    {
+                        if (NacteneRadky[i] == SeznamJidel[TypJidla])
+                        {
+                            PocetTypuJidla++;
+                        }
+                    }
+
+                    if (PocetTypuJidla != 0)
+                    {
+                        Console.WriteLine($"{PocetTypuJidla}x {SeznamJidel[TypJidla]}");
+                    }
+                }
+
+                Console.WriteLine("-----");
+                Console.WriteLine("Děkujeme za Vaši objednávku! Přejete si jí exportovat? (Y/N)\n");
+
+                Console.Write("> ");
+                string ExportOdpoved = Console.ReadLine();
+
+                if (ExportOdpoved == "y" || ExportOdpoved == "Y")
+                {
+                    ExportAktualniObjednavky();
+                    OpravduKonec = PotvrzeniKonce();
+                    if (OpravduKonec == 1)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    if (ExportOdpoved == "n" || ExportOdpoved == "N")
+                    {
+                        OpravduKonec = PotvrzeniKonce();
+                        return 1;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Neplatná volba!");
+                        return 0;
+                    }
+                }
+            }
+        }
+
+        static void Main()
+        {
+            int Odpoved = 0;
+            string[] SeznamJidel = { "Šunkofleky", "Koprovka", "Svíčková", "Guláš", "Rajská", "Kuřecí řízek" };
+            int[] Cenik = { 120, 110, 150, 130, 100, 90 };
+            bool PrvniIterace = true;
+            bool ImportPoPrvniIteraci = false;
+            int PotvrzeniKonce = 0;
+
+            if (File.Exists("AktualniObjednavka.txt"))
+            {
+                File.Delete("AktualniObjednavka.txt");
+                File.Create("AktualniObjednavka.txt").Close();
+            }
+            else
+            {
+                File.Create("AktualniObjednavka.txt").Close();
+            }
+
+            do //zacatek programu
+            {
+                if (PrvniIterace == true) //import pri prvni iteraci cyklu
+                {
+                    bool Import;
+
+                    Console.WriteLine("Vítejte v naší restauraci!");
+                    Console.WriteLine("Přejete si vytvořit novou objednávku [1], nebo importovat již existující [2] ?\n");
+
+                    try
+                    {
+                        Console.Write("> ");
+                        Import = int.Parse(Console.ReadLine()) == 2 ? true : false;
+
+                        if (Import == true) //nacitani existujici objednavky
+                        {
+
+                            Console.Clear();
+                            int UspesneNacteni = NacteniExistujiciObjednavky();
+                            if (UspesneNacteni == 1)
+                            {
+                                Console.WriteLine("Objednávka byla úspěšně importována.\n");
+                                Console.WriteLine("Přejete si upravit objednávku? (Y/N)\n");
+
+                                Console.Write("> ");
+                                string PokracovaniPoImportu = Console.ReadLine();
+
+                                if (PokracovaniPoImportu == "y" || PokracovaniPoImportu == "Y")
+                                {
+                                    NacteniExistujiciObjednavky();
+                                    break;
+                                }
+                                else
+                                {
+                                    if (PokracovaniPoImportu == "n" || PokracovaniPoImportu == "N")
+                                    {
+                                        PotvrzeniKonce = Konec(SeznamJidel);
+                                        if (PotvrzeniKonce == 1)
+                                        {
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Neplatná volba!");
+                                    }
+                                }
+                            }
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            Console.Clear();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Neplatná volba!");
+                        continue;
+                    }
+                }
+
+                Console.WriteLine("Co si přejete objednat?");
+                Console.WriteLine("-----");
+
+                Console.WriteLine("[0] - Šunkofleky");
+                Console.WriteLine("[1] - Koprovka");
+                Console.WriteLine("[2] - Svíčková");
+                Console.WriteLine("[3] - Guláš");
+                Console.WriteLine("[4] - Rajská");
+                Console.WriteLine("[5] - Kuřecí řízek");
+                Console.WriteLine("");
+                Console.WriteLine("[7] - Importovat objednávku");
+                Console.WriteLine("[8] - Zobrazit objednávku");
+                Console.WriteLine("[9] - Konec objednávky");
+                Console.WriteLine("-----\n");
+
+                PrvniIterace = false;
+
+                try
+                {
+                    Console.Write("> ");
+                    Odpoved = int.Parse(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Neplatná volba!\n");
+                    continue;
+                }
+
+                switch (Odpoved)
+                {
+                    //Jídla
+                    case 0:
+                        Console.Clear();
+                        Console.WriteLine("Bylo přidáno do objednávky: " + SeznamJidel[0] + "\n");
+                        ZapisAktualniObjednavky(SeznamJidel, Cenik, Odpoved);
+                        break;
+                    case 1:
+                        Console.Clear();
+                        Console.WriteLine("Bylo přidáno do objednávky: " + SeznamJidel[1] + "\n");
+                        ZapisAktualniObjednavky(SeznamJidel, Cenik, Odpoved);
+                        break;
+                    case 2:
+                        Console.Clear();
+                        Console.WriteLine("Bylo přidáno do objednávky: " + SeznamJidel[2] + "\n");
+                        ZapisAktualniObjednavky(SeznamJidel, Cenik, Odpoved);
+                        break;
+                    case 3:
+                        Console.Clear();
+                        Console.WriteLine("Bylo přidáno do objednávky: " + SeznamJidel[3] + "\n");
+                        ZapisAktualniObjednavky(SeznamJidel, Cenik, Odpoved);
+                        break;
+                    case 4:
+                        Console.Clear();
+                        Console.WriteLine("Bylo přidáno do objednávky: " + SeznamJidel[4] + "\n");
+                        ZapisAktualniObjednavky(SeznamJidel, Cenik, Odpoved);
+                        break;
+                    case 5:
+                        Console.Clear();
+                        Console.WriteLine("Bylo přidáno do objednávky: " + SeznamJidel[5] + "\n");
+                        ZapisAktualniObjednavky(SeznamJidel, Cenik, Odpoved);
+                        break;
+
+                    //Ostatní
+                    case 7: //import po prvni iteraci cyklu
+                        Console.Clear();
+                        ImportPoPrvniIteraci = true;
+                        if (ImportPoPrvniIteraci == true)
+                        {
+                            int UspesneNacteni = NacteniExistujiciObjednavky();
+
+                            if (UspesneNacteni == 1)
+                            {
+                                Console.WriteLine("Objednávka byla úspěšně importována.\n");
+                                Console.WriteLine("Přejete si upravit objednávku? (Y/N)\n");
+
+                                Console.Write("> ");
+                                string PokracovaniPoImportu = Console.ReadLine();
+                                if (PokracovaniPoImportu == "y" || PokracovaniPoImportu == "Y")
+                                {
+                                    Console.Clear();
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    if (PokracovaniPoImportu == "n" || PokracovaniPoImportu == "N")
+                                    {
+                                        PotvrzeniKonce = Konec(SeznamJidel);
+                                        if (PotvrzeniKonce == 1)
+                                        {
+                                            return;
+                                        }
+                                        break;
+                                    }
+                                    Console.Clear();
+                                    Console.WriteLine("Neplatná volba!");
+                                }
+                            }
+                        }
+                        break;
+
+                    case 8:
+                        Console.Clear();
+                        MenuObjednavky();
+                        break;
+
+                    case 9: //konec
+                        Console.Clear();
+                        PotvrzeniKonce = Konec(SeznamJidel);
+                        if (PotvrzeniKonce == 1)
+                        {
+                            return;
+                        }
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Neplatná volba!\n");
+                        break;
+                }
+            } while (true);
+        }
+    }
+}
