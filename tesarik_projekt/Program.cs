@@ -41,21 +41,21 @@ namespace tesarik_projekt
 
         static void ExportAktualniObjednavky()
         {
-            if (File.Exists("ExistujiciObjednavka.txt"))
+            if (File.Exists("ExistujiciObjednavka.txt")) //kontrola jestli soubor existujiic objednavky jiz existuje
             {
-                File.Delete("ExistujiciObjednavka.txt");
+                File.Delete("ExistujiciObjednavka.txt"); //pokud ano - smaze ho
             }
 
             Console.Clear();
-            File.Copy(@"AktualniObjednavka.txt", @"ExistujiciObjednavka.txt", true); //zdroj, cil
+            File.Copy(@"AktualniObjednavka.txt", @"ExistujiciObjednavka.txt", true); //zkopiruje soubor aktualni objednavky ve formatu: zdrojovy soubor, cilovy soubor
             Console.WriteLine("Objednávka byla úspěšně exportována do souboru ExistujiciObjednavka.txt");
         }
 
         static int NacteniExistujiciObjednavky()
         {
-            if (File.Exists("ExistujiciObjednavka.txt"))
+            if (File.Exists("ExistujiciObjednavka.txt")) //kontrola jestli soubor existujiic objednavky jiz existuje
             {
-                File.Copy(@"ExistujiciObjednavka.txt", @"AktualniObjednavka.txt", true);
+                File.Copy(@"ExistujiciObjednavka.txt", @"AktualniObjednavka.txt", true); //pokud ano - zkopiruje soubor exportovane objednavky a pojmenuje ho na format souboru aktualni objednavky
                 return 1;
             }
             else
@@ -67,10 +67,10 @@ namespace tesarik_projekt
 
         static void SmazaniPolozky(int a)
         {
-            int indexRadku = a - 1; //poradova cisla se vypisuji od 1
+            int indexRadku = a - 1; //poradova cisla se vypisuji od 1 - musi se posunout index o 1 dolu
             List<string> radky = File.ReadAllLines("AktualniObjednavka.txt").ToList(); //nacteni vsech radku do listu
 
-            if (indexRadku >= 0 && indexRadku < radky.Count)
+            if (indexRadku >= 0 && indexRadku < radky.Count) //pokud neni vstupni index 0 a zaroven neni vetsi nez pocet radku
             {
                 Console.Clear();
                 radky.RemoveAt(indexRadku); //vymazani polozky z listu
@@ -90,9 +90,9 @@ namespace tesarik_projekt
                     string radek;
                     string[] PoleRadek = new string[2];
                     int PoradoveCislo = 1;
-                    while ((radek = sr.ReadLine()) != null)
+                    while ((radek = sr.ReadLine()) != null) //vypisovaci logika jidel
                     {
-                        PoleRadek = radek.Split(';');
+                        PoleRadek = radek.Split(';'); //jako oddelovac je vybrany charakter ;
                         Console.WriteLine($"{PoradoveCislo} - {PoleRadek[0]} {PoleRadek[1]}");
                         PoradoveCislo++;
                     }
@@ -131,7 +131,7 @@ namespace tesarik_projekt
                             {
                                 int Polozka1 = int.Parse(Odpoved[2].ToString());
                                 int Polozka2 = int.Parse(Odpoved[3].ToString());
-                                int Polozka = Polozka1 * 10 + Polozka2; //pro dvojciferna poradova cisla
+                                int Polozka = Polozka1 * 10 + Polozka2; //nacteme stringy cisel pro dvojciferna poradova cisla
                                 SmazaniPolozky(Polozka);
                             }
                             catch
@@ -171,7 +171,7 @@ namespace tesarik_projekt
                 string Odpoved = Console.ReadLine();
                 if (Odpoved == "y" || Odpoved == "Y")
                 {
-                    return 1;
+                    return 1; //pokud ano - funkce vrati hodnotu 1
                 }
                 else
                 {
@@ -183,7 +183,7 @@ namespace tesarik_projekt
                     }
                     Console.Clear();
                     Console.WriteLine("Neplatná volba!");
-                    return 0;
+                    return 0; //pokud ano - funkce vrati hodnotu 0
                 }
             }
         }
@@ -202,7 +202,7 @@ namespace tesarik_projekt
                 {
                     string radek;
                     string[] PoleRadek = new string[2];
-                    while ((radek = sr.ReadLine()) != null)
+                    while ((radek = sr.ReadLine()) != null) //vypisovaci logika objednavky
                     {
                         PoleRadek = radek.Split(';');
                         Console.WriteLine($"{PoleRadek[0]} {PoleRadek[1]}");
@@ -269,16 +269,15 @@ namespace tesarik_projekt
             }
         }
 
-        static void Main()
+        static void Main() 
         {
-            int Odpoved = 0;
+            int Odpoved = 0; //deklarace a inicializace promennych
             string[] SeznamJidel = { "Šunkofleky", "Koprovka", "Svíčková", "Guláš", "Rajská", "Kuřecí řízek" };
             int[] Cenik = { 115, 666, 130, 135, 130, 105 };
             bool PrvniIterace = true;
-            bool ImportPoPrvniIteraci = false;
             int PotvrzeniKonce = 0;
 
-            if (File.Exists("AktualniObjednavka.txt"))
+            if (File.Exists("AktualniObjednavka.txt")) //pokud existuje soubor aktualni objednavky - smaze ho a vytvori novy, cisty
             {
                 File.Delete("AktualniObjednavka.txt");
                 File.Create("AktualniObjednavka.txt").Close();
@@ -288,7 +287,7 @@ namespace tesarik_projekt
                 File.Create("AktualniObjednavka.txt").Close();
             }
 
-            do //zacatek programu
+            do //hlavni cyklus programu
             {
                 if (PrvniIterace == true) //import pri prvni iteraci cyklu
                 {
@@ -299,14 +298,25 @@ namespace tesarik_projekt
 
 
                     Console.Write("> ");
-                    Import = int.Parse(Console.ReadLine()) == 2 ? true : false;
+                    try
+                    {
+                        bool tempImport = int.Parse(Console.ReadLine()) == 2 ? true : false; //parsenuti vstupu -> porovnani hodnoty -> nastaveni bool hodnoty
+                        Import = tempImport;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Nepltatná volba!");
+
+                        Console.Clear();
+                        continue;
+                    }
 
                     if (Import == true) //nacitani existujici objednavky
                     {
 
                         Console.Clear();
                         int UspesneNacteni = NacteniExistujiciObjednavky();
-                        if (UspesneNacteni == 1)
+                        if (UspesneNacteni == 1) //kontrola zda se soubor spravne nacetl
                         {
                             Console.WriteLine("Objednávka byla úspěšně importována.\n");
                             Console.WriteLine("Přejete si upravit objednávku? (Y/N)\n");
@@ -316,8 +326,7 @@ namespace tesarik_projekt
 
                             if (PokracovaniPoImportu == "y" || PokracovaniPoImportu == "Y")
                             {
-                                Console.WriteLine("Úspěšně vráceno do menu\n");
-                                //jdeme do menu
+                                Console.WriteLine("Úspěšně vráceno do menu\n");//jdeme do menu
                             }
                             else if (PokracovaniPoImportu == "n" || PokracovaniPoImportu == "N")
                             {
@@ -356,7 +365,7 @@ namespace tesarik_projekt
                 Console.WriteLine("[8] - Zobrazit objednávku");
                 Console.WriteLine("[9] - Konec objednávky");
 
-                int CelkovaCena = NacteniCeny();
+                int CelkovaCena = NacteniCeny(); //zavolani funkce NacteniCeny() - vypise cenu podle prvku v souboru aktualniobjednavka
                 if (CelkovaCena == 0)
                 {
                     Console.WriteLine("\nPrázdná objednávka!\n");
@@ -375,7 +384,7 @@ namespace tesarik_projekt
                     }
                 }
 
-                PrvniIterace = false;
+                PrvniIterace = false; //zruseni inicialni nabidky
 
                 try
                 {
@@ -391,7 +400,7 @@ namespace tesarik_projekt
 
                 switch (Odpoved)
                 {
-                    //Jídla
+                    //jidla
                     case 0:
                         Console.Clear();
                         Console.WriteLine("Bylo přidáno do objednávky: " + SeznamJidel[0] + "\n");
@@ -423,43 +432,39 @@ namespace tesarik_projekt
                         ZapisAktualniObjednavky(SeznamJidel, Cenik, Odpoved);
                         break;
 
-                    //Ostatní
+                    //ostatni volby
                     case 7: //import po prvni iteraci cyklu
                         Console.Clear();
-                        ImportPoPrvniIteraci = true;
-                        if (ImportPoPrvniIteraci == true)
+                        int UspesneNacteni = NacteniExistujiciObjednavky(); //kontrola zda se soubor spravne nacetl
+                        if (UspesneNacteni == 1)
                         {
-                            int UspesneNacteni = NacteniExistujiciObjednavky();
+                            Console.WriteLine("Objednávka byla úspěšně importována.\n");
+                            Console.WriteLine("Přejete si upravit objednávku? (Y/N)\n");
 
-                            if (UspesneNacteni == 1)
+                            Console.Write("> ");
+                            string PokracovaniPoImportu = Console.ReadLine();
+                            if (PokracovaniPoImportu == "y" || PokracovaniPoImportu == "Y")
                             {
-                                Console.WriteLine("Objednávka byla úspěšně importována.\n");
-                                Console.WriteLine("Přejete si upravit objednávku? (Y/N)\n");
-
-                                Console.Write("> ");
-                                string PokracovaniPoImportu = Console.ReadLine();
-                                if (PokracovaniPoImportu == "y" || PokracovaniPoImportu == "Y")
+                                Console.Clear();
+                                break;
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                if (PokracovaniPoImportu == "n" || PokracovaniPoImportu == "N")
                                 {
-                                    Console.Clear();
+                                    PotvrzeniKonce = Konec(SeznamJidel);
+                                    if (PotvrzeniKonce == 1)
+                                    {
+                                        return;
+                                    }
                                     break;
                                 }
-                                else
-                                {
-                                    Console.Clear();
-                                    if (PokracovaniPoImportu == "n" || PokracovaniPoImportu == "N")
-                                    {
-                                        PotvrzeniKonce = Konec(SeznamJidel);
-                                        if (PotvrzeniKonce == 1)
-                                        {
-                                            return;
-                                        }
-                                        break;
-                                    }
-                                    Console.Clear();
-                                    Console.WriteLine("Neplatná volba!");
-                                }
+                                Console.Clear();
+                                Console.WriteLine("Neplatná volba!");
                             }
                         }
+                        
                         break;
 
                     case 8:

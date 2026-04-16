@@ -14,8 +14,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{c6f34f0d-7ae5-4f3a-be61-fe0c21ae9eb8}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,9 +28,9 @@
               "RelativeDocumentMoniker": "tesarik_projekt\\Program.cs",
               "ToolTip": "C:\\Users\\danie\\source\\repos\\tesarik_projekt\\tesarik_projekt\\Program.cs",
               "RelativeToolTip": "tesarik_projekt\\Program.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAwB4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACgBAAAAAAAAAAAmwD0BAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-05T11:58:49.472Z",
+              "WhenOpened": "2026-04-16T09:52:25.559Z",
               "EditorCaption": ""
             }
           ]
