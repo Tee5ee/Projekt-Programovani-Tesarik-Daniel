@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tesarik_projekt")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+663c24e2f0f30da27fdfc72a16b72ff7c595bc9a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85fea4d6afab63371ca51cb7b31824c33bfee693")]
 [assembly: System.Reflection.AssemblyProductAttribute("tesarik_projekt")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tesarik_projekt")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -129,16 +129,28 @@ namespace tesarik_projekt
                         case 0:
                             try
                             {
-                                int Polozka1 = int.Parse(Odpoved[2].ToString());
-                                int Polozka2 = int.Parse(Odpoved[3].ToString());
-                                int Polozka = Polozka1 * 10 + Polozka2; //nacteme stringy cisel pro dvojciferna poradova cisla
-                                SmazaniPolozky(Polozka);
+                                string[] castiVstupu = Odpoved.Split(' '); //pole - index 1 = volba 0, index 2 = pořadové číslo
+
+                                if (castiVstupu.Length >= 2)
+                                {
+                                    int Polozka = int.Parse(castiVstupu[1]);
+                                    if(Polozka == 0)
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("Neplatná položka!\n");
+                                    }
+                                    SmazaniPolozky(Polozka);
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Zadejte formát: 0 <mezera> číslo!\n");
+                                }
                             }
                             catch
                             {
                                 Console.Clear();
-                                Console.WriteLine("Neplatné pořadové číslo!");
-                                continue;
+                                Console.WriteLine("Neplatný formát!\n");
                             }
                             break;
 
@@ -178,11 +190,11 @@ namespace tesarik_projekt
                     if (Odpoved == "n" || Odpoved == "N")
                     {
                         Console.Clear();
-                        Console.WriteLine("Úspěšně vráceno do menu\n");
+                        Console.WriteLine("Úspěšně vráceno do menu!\n");
                         return 0;
                     }
                     Console.Clear();
-                    Console.WriteLine("Neplatná volba!");
+                    Console.WriteLine("Neplatná volba!\n");
                     return 0; //pokud ano - funkce vrati hodnotu 0
                 }
             }
@@ -200,11 +212,11 @@ namespace tesarik_projekt
 
                 using (StreamReader sr = new StreamReader(@"AktualniObjednavka.txt"))
                 {
-                    string radek;
+                    string Radek;
                     string[] PoleRadek = new string[2];
-                    while ((radek = sr.ReadLine()) != null) //vypisovaci logika objednavky
+                    while ((Radek = sr.ReadLine()) != null) //vypisovaci logika objednavky
                     {
-                        PoleRadek = radek.Split(';');
+                        PoleRadek = Radek.Split(';');
                         Console.WriteLine($"{PoleRadek[0]} {PoleRadek[1]}");
                     }
                 }
@@ -262,7 +274,7 @@ namespace tesarik_projekt
                     else
                     {
                         Console.Clear();
-                        Console.WriteLine("Neplatná volba!");
+                        Console.WriteLine("Neplatná volba!\n");
                         return 0;
                     }
                 }
@@ -461,7 +473,7 @@ namespace tesarik_projekt
                                     break;
                                 }
                                 Console.Clear();
-                                Console.WriteLine("Neplatná volba!");
+                                Console.WriteLine("Neplatná volba!\n");
                             }
                         }
                         
