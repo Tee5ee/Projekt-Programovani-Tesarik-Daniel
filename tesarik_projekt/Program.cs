@@ -285,7 +285,7 @@ namespace tesarik_projekt
         {
             int Odpoved = 0; //deklarace a inicializace promennych
             string[] SeznamJidel = { "Šunkofleky", "Koprovka", "Svíčková", "Guláš", "Rajská", "Kuřecí řízek" };
-            int[] Cenik = { 115, 666, 130, 135, 130, 105 };
+            int[] Cenik = { 115, 200, 130, 135, 130, 105 };
             bool PrvniIterace = true;
             int PotvrzeniKonce = 0;
 

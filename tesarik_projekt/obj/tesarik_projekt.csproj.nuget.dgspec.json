@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\danie\\source\\repos\\tesarik_projekt\\tesarik_projekt\\tesarik_projekt.csproj": {}
+    "C:\\Users\\danie\\OneDrive\\Plocha\\Projekt_tesarik\\Projekt-Programovani-Tesarik-Daniel\\tesarik_projekt\\tesarik_projekt.csproj": {}
   },
   "projects": {
-    "C:\\Users\\danie\\source\\repos\\tesarik_projekt\\tesarik_projekt\\tesarik_projekt.csproj": {
+    "C:\\Users\\danie\\OneDrive\\Plocha\\Projekt_tesarik\\Projekt-Programovani-Tesarik-Daniel\\tesarik_projekt\\tesarik_projekt.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danie\\source\\repos\\tesarik_projekt\\tesarik_projekt\\tesarik_projekt.csproj",
+        "projectUniqueName": "C:\\Users\\danie\\OneDrive\\Plocha\\Projekt_tesarik\\Projekt-Programovani-Tesarik-Daniel\\tesarik_projekt\\tesarik_projekt.csproj",
         "projectName": "tesarik_projekt",
-        "projectPath": "C:\\Users\\danie\\source\\repos\\tesarik_projekt\\tesarik_projekt\\tesarik_projekt.csproj",
+        "projectPath": "C:\\Users\\danie\\OneDrive\\Plocha\\Projekt_tesarik\\Projekt-Programovani-Tesarik-Daniel\\tesarik_projekt\\tesarik_projekt.csproj",
         "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danie\\source\\repos\\tesarik_projekt\\tesarik_projekt\\obj\\",
+        "outputPath": "C:\\Users\\danie\\OneDrive\\Plocha\\Projekt_tesarik\\Projekt-Programovani-Tesarik-Daniel\\tesarik_projekt\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -26,6 +26,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -44,6 +45,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -61,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.202/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

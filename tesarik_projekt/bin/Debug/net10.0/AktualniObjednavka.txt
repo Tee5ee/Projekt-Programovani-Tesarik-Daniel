@@ -1,14 +1,1 @@
-Šunkofleky;115
-Šunkofleky;115
-Koprovka;666
-Koprovka;666
-Koprovka;666
-Koprovka;666
-Svíčková;130
-Svíčková;130
-Guláš;135
-Svíčková;130
-Svíčková;130
-Koprovka;666
-Kuřecí řízek;105
-Svíčková;130
+Koprovka;200
